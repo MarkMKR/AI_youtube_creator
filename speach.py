@@ -7,7 +7,7 @@ model_manager = ModelManager(path)
 
 model_path, config_path, model_item = model_manager.download_model("tts_models/en/ljspeech/vits--neon")
 
-if model_item["default_vocoder"]:
+if model_item.get("default_vocoder"):
     voc_path, voc_config_path, _ = model_manager.download_model(model_item["default_vocoder"])
 
     syn = Synthesizer(
@@ -23,7 +23,7 @@ else:
     )
 
 
-def make_voice(text_dub, filename="audio.wav"):
+def make_voice(text_dub, filename="voice-audio.wav"):
     outputs = syn.tts(text_dub)
     syn.save_wav(outputs, filename)
 

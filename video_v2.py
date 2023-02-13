@@ -1,27 +1,27 @@
 from moviepy.editor import *
-from PIL import Image
-from resize import resize_for_phone
+from resize import resize_photo
 
-img_clips = []
-path_list=[]
-path_imgs = 'imgs'
-phone_imgs = 'phone_imgs'
 
-if not os.listdir(phone_imgs):
-    resize_for_phone()
+def make_video(video_name="temp_video", duration=60, img_path="imgs", resized_path="phone_imgs"):
+    img_clips = []
+    path_list = []
 
-#accessing path of each image
-for image in os.listdir(phone_imgs):
-    if image.endswith(".jpg") or image.endswith(".jpeg") or image.endswith("png"):
-        path_list.append(os.path.join(phone_imgs, image))
+    if not os.listdir(resized_path):
+        resize_photo(path_inp=img_path, path_out=resized_path)
 
-#creating slide for each image
-for img_path in path_list:
-    slide = ImageClip(img_path, duration=2)
-    img_clips.append(slide)
+    for image in os.listdir(resized_path):
+        if image.endswith(".jpg") or image.endswith(".jpeg") or image.endswith("png"):
+            path_list.append(os.path.join(resized_path, image))
 
-# breakpoint()
-#concatenating slides
-video_slides = concatenate_videoclips(img_clips, method='compose')
-#exporting final video
-video_slides.write_videofile("output_video.mp4", fps=60)
+    frame_duration = duration / len(path_list)
+
+    for img_path in path_list:
+        slide = ImageClip(img_path, duration=frame_duration)
+        img_clips.append(slide)
+
+    video_slides = concatenate_videoclips(img_clips, method='compose')
+    video_slides.write_videofile(video_name + ".mp4", fps=60)
+
+
+if __name__ == "__main__":
+    make_video()

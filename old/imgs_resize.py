@@ -1,7 +1,7 @@
 from PIL import Image
 import os
 
-path_imgs = 'imgs'
+path_imgs = '../imgs'
 
 
 def pc_resize():

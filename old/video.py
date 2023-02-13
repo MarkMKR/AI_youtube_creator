@@ -4,15 +4,15 @@ from PIL import Image
 
 print(os.getcwd())
 
-os.chdir("C:\\Users\\Mark\\PycharmProjects\\AI_youtube_creator\\imgs")
-path = "C:\\Users\\Mark\\PycharmProjects\\AI_youtube_creator\\imgs"
+os.chdir("/imgs")
+path = "/imgs"
 
 mean_height = 0
 mean_width = 0
 
-num_of_images = len(os.listdir('.'))
+num_of_images = len(os.listdir('..'))
 
-for file in os.listdir('.'):
+for file in os.listdir('..'):
     im = Image.open(os.path.join(path, file))
     width, height = im.size
     mean_width += width
@@ -21,7 +21,7 @@ for file in os.listdir('.'):
 mean_width = int(mean_width / num_of_images)
 mean_height = int(mean_height / num_of_images)
 
-for file in os.listdir('.'):
+for file in os.listdir('..'):
     if file.endswith(".jpg") or file.endswith(".jpeg") or file.endswith("png"):
         im = Image.open(os.path.join(path, file))
 
@@ -37,7 +37,7 @@ for file in os.listdir('.'):
 def generate_video(time=20):
     image_folder = "C:\\Users\\Mark\\PycharmProjects\\AI_youtube_creator\\imgs"
     video_name = 'mygeneratedvideo.mp4'
-    os.chdir("C:\\Users\\Mark\\PycharmProjects\\AI_youtube_creator\\")
+    os.chdir("/\\")
 
     images = [img for img in os.listdir(image_folder)
               if img.endswith(".jpg") or
