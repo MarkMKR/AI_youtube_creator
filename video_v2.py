@@ -2,7 +2,7 @@ from moviepy.editor import *
 from resize import resize_photo
 
 
-def make_video(video_name="temp_video", duration=60, img_path="imgs", resized_path="phone_imgs"):
+def make_video(video_name="temp_video", duration=60, img_path="cats", resized_path="resize_imgs"):
     img_clips = []
     path_list = []
 
@@ -10,7 +10,8 @@ def make_video(video_name="temp_video", duration=60, img_path="imgs", resized_pa
         resize_photo(path_inp=img_path, path_out=resized_path)
 
     for image in os.listdir(resized_path):
-        if image.endswith(".jpg") or image.endswith(".jpeg") or image.endswith("png"):
+        if image.endswith(".jpg") or image.endswith(".jpeg") or image.endswith(".png") \
+                or image.endswith('.JPG') or image.endswith('.JPEG') or image.endswith("PNG"):
             path_list.append(os.path.join(resized_path, image))
 
     frame_duration = duration / len(path_list)

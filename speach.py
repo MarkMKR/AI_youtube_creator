@@ -1,5 +1,6 @@
 from TTS.utils.manage import ModelManager
 from TTS.utils.synthesizer import Synthesizer
+import wave
 
 path = r"C:\Users\Mark\PycharmProjects\AI_youtube_creator\venv\Lib\site-packages\TTS/.models.json"
 
@@ -26,11 +27,14 @@ else:
 def make_voice(text_dub, filename="voice-audio.wav"):
     outputs = syn.tts(text_dub)
     syn.save_wav(outputs, filename)
+    with wave.open(filename) as mywav:
+        return round(mywav.getnframes() / mywav.getframerate())
+
 
 
 if __name__ == "__main__":
     text = """
     The veteran tech company is reorganising its advertising unit, which will lose more than half of the department by the end of the year.
     """
-    make_voice(text)
+    print(make_voice(text))
 

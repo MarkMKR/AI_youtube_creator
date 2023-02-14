@@ -1,6 +1,7 @@
 import moviepy.editor as mp
 import cv2
 from pydub import AudioSegment
+import datetime
 
 
 def combine_video(video_path="temp_video.mp4", voice_path="voice-audio.wav", back_music_path="back_music/chill-tech.mp3"):
@@ -22,7 +23,8 @@ def combine_video(video_path="temp_video.mp4", voice_path="voice-audio.wav", bac
     video1 = mp.VideoFileClip(video_path)
     final = video1.set_audio(final_audio)
 
-    final.write_videofile("final.mp4")
+    ts = datetime.datetime.now().timestamp()
+    final.write_videofile(str(ts) + "_final.mp4")
 
 
 if __name__ == "__main__":

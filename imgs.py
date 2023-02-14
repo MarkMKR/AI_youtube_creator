@@ -7,32 +7,26 @@ if os.path.exists(".env"):
 else:
     print(".env file missing, please create one with your API and CX")
 
-# create an 'ims' sub directory if it doesn't already exists
-if not os.path.exists('test-imgs/'):
-    os.mkdir('test-imgs/')
-spath = "test-imgs"
 
-# Get env variables
 DK = os.environ.get('DEVELOPER_KEY')
 CX = os.environ.get('CX')
-print(DK)
 
-# custom progressbar function
+
 def my_progressbar(url, progress):
     print(url + " " + progress + "%")
 
-
-# create google images search - object
 gis = GoogleImagesSearch(DK, CX, progressbar_fn=my_progressbar)
 
 
-def fetch_images(searchfor):
-    # using contextual mode (Curses)
+def fetch_images(searchfor, num=15, dir="imgs"):
+    if not os.path.exists(dir + "\\"):
+        os.mkdir(dir + "\\")
+    spath = dir
+
     with GoogleImagesSearch(DK, CX) as gis:
-        # define search params:
         _search_params = {"q": searchfor,
-                          "num": 15,
-                          "fileType": "jpg",
+                          "num": num,
+                          "fileType": "jpg|png|jpeg",
                           "imgType": "photo",
                           "rights": "cc_publicdomain"
                           }
@@ -42,4 +36,4 @@ def fetch_images(searchfor):
 
 
 if __name__ == "__main__":
-    fetch_images('cats')
+    fetch_images('cats', dir='cats')
