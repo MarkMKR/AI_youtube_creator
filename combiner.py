@@ -24,7 +24,10 @@ def combine_video(video_path="temp_video.mp4", voice_path="voice-audio.wav", bac
     final = video1.set_audio(final_audio)
 
     ts = datetime.datetime.now().timestamp()
-    final.write_videofile(str(ts) + "_final.mp4")
+    filename = str(ts) + "_final.mp4"
+    final.write_videofile(filename)
+
+    return filename
 
 
 if __name__ == "__main__":
