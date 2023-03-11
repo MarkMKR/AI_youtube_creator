@@ -16,7 +16,7 @@ def make_video(video_name="temp_video", duration=60, img_path="imgs", resized_pa
         img_clips.append(slide)
 
     video_slides = concatenate_videoclips(img_clips, method='compose')
-    video_slides.write_videofile(video_name + ".mp4", fps=60)
+    video_slides.write_videofile(f"{video_name}.mp4", fps=60)
 
 
 if __name__ == "__main__":

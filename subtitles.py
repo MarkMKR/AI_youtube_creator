@@ -25,7 +25,8 @@ def pipeline(frame):
         margin_bottom_y = 120
 
         textX = int((frame.shape[1] - textsize[0]) / 2)
-        textY = int(textsize[1] + margin_bottom_y)
+        # textY = int(textsize[1] + margin_bottom_y)
+        textY = int(frame.shape[0] * 0.8)
 
         padding = 25
 
@@ -119,7 +120,7 @@ def make_subs(text, video_name):
 
     video = VideoFileClip(video_name)
     out_video = video.fl_image(pipeline)
-    out_video.write_videofile("subs_" + video_name, audio=True)
+    out_video.write_videofile(f"subs_{video_name}", audio=True)
 
     return subs
 
@@ -128,6 +129,6 @@ if __name__ == "__main__":
     text = """
     Satellite images reveal two massive cracks near the Turkish-Syrian border after 7.7 magnitude earthquake hit Kahramanmaras and affected 10 provinces. The longer one is 300km long, caused by the first of two powerful earthquakes, which claimed over 31,600 lives.
     """
-    filename = '1676834711.4079_final.mp4'
+    filename = '1677396411.792382_final.mp4'
 
     make_subs(text, filename)

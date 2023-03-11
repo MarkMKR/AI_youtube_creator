@@ -6,25 +6,30 @@ import video_v2
 import subtitles
 from resize import resize_photo
 
-
-
-text = """
-Meta has announced that it will launch a paid subscription service called Meta Verified, which allows Instagram and Facebook users to pay for a blue tick verification. The monthly subscription, costing $11.99 for web and $14.99 for iPhone users, will improve security and authenticity on the social media apps. The badges or "blue ticks" have been used as verification tools for high-profile accounts, and the paid subscription will give users increased visibility, protection from impersonators, and easier access to customer service.
-"""
-
 img_path = 'imgs'
 img_search = '---'
 resized_path = 'resize_imgs'
+
+temp_video_name = 'news_temp_video'
+temp_speach_name = 'news_voice_audio.wav'
+
+final_video_prefix = 'news_'
+
+news_music = ['back_music/news2.mp3', 'back_music/chill-tech.mp3']
+
+text = """
+Meta, the parent company of Facebook and Instagram, is developing a decentralized social network app, codenamed P92, similar to Mastodon. Users can log in using their Instagram credentials. The move could challenge Twitter's advertising and impersonation issues following Elon Musk's takeover.
+"""
 
 # imgs.fetch_images(img_path, num=3, dir=img_path)
 
 # if not os.listdir(resized_path):
 resize_photo(path_inp=img_path, path_out=resized_path)
 
-duration = speach.make_voice(text)
+duration = speach.make_voice(text, filename=temp_speach_name)
 
-video_v2.make_video(duration=duration, img_path=img_path, resized_path=resized_path)
+video_v2.make_video(video_name=temp_video_name, duration=duration, img_path=img_path, resized_path=resized_path)
 
-filename = combiner.combine_video()
+filename = combiner.combine_video(video_path=temp_video_name, voice_path=temp_speach_name, back_music_path=news_music[0], prefix=final_video_prefix)
 
 subtitles.make_subs(text, filename)
